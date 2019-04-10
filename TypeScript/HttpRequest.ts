@@ -42,7 +42,9 @@ module AlienTube {
             } else {
                 let xhr = new XMLHttpRequest();
                 xhr.open(RequestType[type], url, true);
-                xhr.withCredentials = true;
+                // The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials are included.
+                // xhr.withCredentials = true;
+                xhr.setRequestHeader("X-Requested-With", "AlienTube");
                 if (type === RequestType.POST) {
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 }

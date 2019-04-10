@@ -6,11 +6,11 @@
     "description": "Reddit comments, in your YouTube!",
     "author": "Delexious",
     "license": "BSD 3",
-    "version": "2.7.1",
+    "version": "2.7.2",
     "main": "lib/main.js",
 
     "permissions": {
-        "cross-domain-content": ["https://api.reddit.com/"]
+        "cross-domain-content": ["https://api.reddit.com/", "https://cors-anywhere.herokuapp.com/"]
     },
     
     "preferences": [

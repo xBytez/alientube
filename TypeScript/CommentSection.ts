@@ -33,7 +33,7 @@ module AlienTube {
                     this.set(loadingScreen.HTMLElement);
                     // Open a search request to Reddit for the video identfiier
                     let videoSearchString = this.getVideoSearchString(currentVideoIdentifier);
-                    new AlienTube.Reddit.Request("https://api.reddit.com/search.json?q=" + videoSearchString, RequestType.GET, function (results) {
+                    new AlienTube.Reddit.Request("https://cors-anywhere.herokuapp.com/api.reddit.com/search.json?q=" + videoSearchString, RequestType.GET, function (results) {
 
                         // There are a number of ways the Reddit API can arbitrarily explode, here are some of them.
                         if (results === {} || results.kind !== 'Listing' || results.data.children.length === 0) {
@@ -162,7 +162,7 @@ module AlienTube {
             }
             alientubeCommentContainer.appendChild(loadingScreen.HTMLElement);
 
-            let requestUrl = `https://api.reddit.com/r/${threadData.subreddit}/comments/${threadData.id}.json?sort=${Preferences.getString("threadSortType")}`;
+            let requestUrl = `https://cors-anywhere.herokuapp.com/api.reddit.com/r/${threadData.subreddit}/comments/${threadData.id}.json?sort=${Preferences.getString("threadSortType")}`;
             new AlienTube.Reddit.Request(requestUrl, RequestType.GET, function (responseObject) {
                 // Remove previous tab from memory if preference is unchecked; will require a download on tab switch.
                 responseObject[0].data.children[0].data.official = threadData.official;
@@ -202,7 +202,8 @@ module AlienTube {
             /* Since there is no implicit event for a css property has changed, I have set a small transition on the body background colour.
                this transition will trigger the transitionend event and we can use that to check if the background colour has changed, thereby activating dark mode. */
             document.body.addEventListener("transitionend", function (e : TransitionEvent) {
-                if (e.propertyName === "background-color" && e.srcElement.tagName === "BODY") {
+                let srcElement: any = e.srcElement; // This was needed to make the TypeScript compiler shut up about the property not existing.
+                if (e.propertyName === "background-color" && srcElement.tagName === "BODY") {
                     (<any>this).checkEnvironmentDarkModestatus(document.getElementById("alientube"));
                 }
             }, false);

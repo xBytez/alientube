@@ -121,7 +121,7 @@ else
     tsc --target ES2015 --out lib/options-es5.js TypeScript/Options/Options.ts
     echo Compiling Application page TypeScript in ES5 compatibility mode with comments.
     tsc --target ES2015 --out lib/script-es5.js TypeScript/index.ts
-    
+
     echo Compiling Options page TypeScript file with comments.
     tsc --target ES6 --out lib/options.js TypeScript/Options/Options.ts
     echo Compiling Application page TypeScript file with comments.
@@ -174,11 +174,11 @@ fi
 
 echo ${standout}Copying Localisation Files${normal}
 echo Copying localisation files to Chrome
-rsync -a --exclude=".*" _locales Chrome/
+cp -rp _locales Chrome/
 echo Copying localisation files to Safari
-rsync -a --exclude=".*" _locales Safari.safariextension/
+cp -rp _locales Safari.safariextension/
 echo Copying localisation files to Firefox
-rsync -a --exclude=".*" _locales Firefox/data/
+cp -rp _locales Firefox/data/
 
 if [ "$1" == "--debug" ] && [[ "$OSTYPE" == "darwin"* ]]; then
     echo ${standout}Reloading Development Browsers${normal}
